@@ -14,7 +14,7 @@ func Test_Trigger(t *testing.T) {
     
     r, err := Trigger(channels, APP_ID);
     
-    expected := fmt.Sprintf("/apps/%s", APP_ID);
+    expected := fmt.Sprintf("/apps/%d/events", APP_ID);
     
     if (r != expected) {
         t.Errorf("expected `%s` to be `%s`", r, expected);    
