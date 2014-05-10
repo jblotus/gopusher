@@ -1,5 +1,5 @@
 package gopusher
 
-func Trigger() {
+func Trigger() string {
     return "this will return a pusher response eventually"
 }
