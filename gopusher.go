@@ -11,7 +11,7 @@ const (
     PUSHER_HOST = "http://api.pusherapp.com";
 )
 
-func Trigger(channels []string, appid int) (string, error) {
+func Trigger(channels []string, appid int, event string, data[] byte) (string, error) {
     
     if (len(channels) > MAX_PUSHER_CHANNELS) {
         err := errors.New(TOO_MANY_CHANNELS_ERROR_MSG)

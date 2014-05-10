@@ -3,25 +3,31 @@ package gopusher
 import (
     "fmt"
     "testing"
+    "encoding/json"
 )
 
 const (
     APP_ID = 123
+    ANY_EVENT = "foooooo"
 )
 
 func Test_Trigger(t *testing.T) {    
     channels := []string{"foo", "bar", "baz"}
     
-    r, err := Trigger(channels, APP_ID);
+    anyData := map[string]string{"fooooo" : "baaar"}
+    encodedData, err := json.Marshal(anyData)
     
-    expected := fmt.Sprintf("/apps/%d/events", APP_ID);
+    
+    r, err := Trigger(channels, APP_ID, ANY_EVENT, encodedData)
+    
+    expected := fmt.Sprintf("/apps/%d/events", APP_ID)
     
     if (r != expected) {
-        t.Errorf("expected `%s` to be `%s`", r, expected);    
+        t.Errorf("expected `%s` to be `%s`", r, expected)
     }
     
     if (err != nil) {
-        t.Errorf("some error happened");
+        t.Errorf("some error happened")
     }
     
 }
@@ -131,16 +137,19 @@ func Test_Trigger_ErrorsOnTooManyChannels(t *testing.T) {
         "JooJoo",
     }
     
-    r, err := Trigger(channels, APP_ID);
+    anyData := map[string]string{"fooooo" : "baaar"}
+    encodedData, err := json.Marshal(anyData)
+    
+    r, err := Trigger(channels, APP_ID, ANY_EVENT, encodedData)
     
     if err == nil {
-       t.Errorf("expected error due to too many channels, got `%s` instead", r);
+       t.Errorf("expected error due to too many channels, got `%s` instead", r)
     }
     
-    expected := "an event can be triggered on a maximum of 100 channels in a single call.";
+    expected := "an event can be triggered on a maximum of 100 channels in a single call."
     
     if (err.Error() != expected) {
-        t.Errorf("expected `%s` to be `%s`", err, expected);    
+        t.Errorf("expected `%s` to be `%s`", err, expected)
     }
     
 }
