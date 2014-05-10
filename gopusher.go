@@ -1,0 +1,5 @@
+package gopusher
+
+func Trigger() {
+    
+}
