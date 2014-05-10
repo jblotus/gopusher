@@ -1,6 +1,6 @@
 package gopusher
 
-import (
+import (    
     "testing"
 )
 
@@ -128,6 +128,12 @@ func Test_Trigger_ErrorsOnTooManyChannels(t *testing.T) {
     
     if err == nil {
        t.Errorf("expected error due to too many channels, got `%s` instead", r);
+    }
+    
+    expected := "an event can be triggered on a maximum of 100 channels in a single call.";
+    
+    if (err.Error() != expected) {
+        t.Errorf("expected `%s` to be `%s`", err, expected);    
     }
     
 }
