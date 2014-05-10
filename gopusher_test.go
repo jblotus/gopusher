@@ -1,16 +1,23 @@
 package gopusher
 
-import (    
+import (
+    "fmt"
     "testing"
+)
+
+const (
+    APP_ID = 123
 )
 
 func Test_Trigger(t *testing.T) {    
     channels := []string{"foo", "bar", "baz"}
     
-    r, err := Trigger(channels);
+    r, err := Trigger(channels, APP_ID);
     
-    if (r != "this will return a pusher response eventually") {
-        t.Errorf("expected `%s` to be `foo`", r);    
+    expected := fmt.Sprintf("/apps/%s", APP_ID);
+    
+    if (r != expected) {
+        t.Errorf("expected `%s` to be `%s`", r, expected);    
     }
     
     if (err != nil) {
@@ -124,7 +131,7 @@ func Test_Trigger_ErrorsOnTooManyChannels(t *testing.T) {
         "JooJoo",
     }
     
-    r, err := Trigger(channels);
+    r, err := Trigger(channels, APP_ID);
     
     if err == nil {
        t.Errorf("expected error due to too many channels, got `%s` instead", r);
