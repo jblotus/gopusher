@@ -18,7 +18,7 @@ func Test_Trigger(t *testing.T) {
     encodedData, err := json.Marshal(anyData)
     
     
-    r, err := Trigger(channels, APP_ID, ANY_EVENT, encodedData)
+    r, _ := Trigger(channels, APP_ID, ANY_EVENT, encodedData)
     
     expected := fmt.Sprintf("/apps/%d/events", APP_ID)
     
@@ -138,7 +138,7 @@ func Test_Trigger_ErrorsOnTooManyChannels(t *testing.T) {
     }
     
     anyData := map[string]string{"fooooo" : "baaar"}
-    encodedData, err := json.Marshal(anyData)
+    encodedData, _ := json.Marshal(anyData)
     
     r, err := Trigger(channels, APP_ID, ANY_EVENT, encodedData)
     
